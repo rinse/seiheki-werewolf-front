@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/seiheki-werewolf-front/precache-manifest.b0545f67ba99c66f2eb40d44d07beaa9.js"
+  "/seiheki-werewolf-front/precache-manifest.74c82e0c53d3ad5afbcb6920f2b1e87e.js"
 );
 
 self.addEventListener('message', (event) => {

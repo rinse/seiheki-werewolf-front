@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8e3e961676aa954a2e2f84f14a7fce45",
+    "revision": "8666d9eb9542459e178848302366353f",
     "url": "/seiheki-werewolf-front/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/seiheki-werewolf-front/static/js/2.7786e749.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "111ba6ceaa086447ce70",
-    "url": "/seiheki-werewolf-front/static/js/main.0dd65d5c.chunk.js"
+    "revision": "3565a87011b4dd871f0c",
+    "url": "/seiheki-werewolf-front/static/js/main.2c875164.chunk.js"
   },
   {
     "revision": "d61459cc58c27d587fa8",

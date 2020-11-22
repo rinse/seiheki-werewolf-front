@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/seiheki-werewolf-front/static/js/main.0dd65d5c.chunk.js",
-    "main.js.map": "/seiheki-werewolf-front/static/js/main.0dd65d5c.chunk.js.map",
+    "main.js": "/seiheki-werewolf-front/static/js/main.2c875164.chunk.js",
+    "main.js.map": "/seiheki-werewolf-front/static/js/main.2c875164.chunk.js.map",
     "runtime-main.js": "/seiheki-werewolf-front/static/js/runtime-main.d5ed7b98.js",
     "runtime-main.js.map": "/seiheki-werewolf-front/static/js/runtime-main.d5ed7b98.js.map",
     "static/js/2.7786e749.chunk.js": "/seiheki-werewolf-front/static/js/2.7786e749.chunk.js",
     "static/js/2.7786e749.chunk.js.map": "/seiheki-werewolf-front/static/js/2.7786e749.chunk.js.map",
     "index.html": "/seiheki-werewolf-front/index.html",
-    "precache-manifest.b0545f67ba99c66f2eb40d44d07beaa9.js": "/seiheki-werewolf-front/precache-manifest.b0545f67ba99c66f2eb40d44d07beaa9.js",
+    "precache-manifest.74c82e0c53d3ad5afbcb6920f2b1e87e.js": "/seiheki-werewolf-front/precache-manifest.74c82e0c53d3ad5afbcb6920f2b1e87e.js",
     "service-worker.js": "/seiheki-werewolf-front/service-worker.js",
     "static/js/2.7786e749.chunk.js.LICENSE.txt": "/seiheki-werewolf-front/static/js/2.7786e749.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d5ed7b98.js",
     "static/js/2.7786e749.chunk.js",
-    "static/js/main.0dd65d5c.chunk.js"
+    "static/js/main.2c875164.chunk.js"
   ]
 }
