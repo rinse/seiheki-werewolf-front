@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from "react";
+import React from "react";
 import Content from "./Content";
 import SeihekiFooter from "./SeihekiFooter";
 import Seiheki from "../types/Seiheki";
