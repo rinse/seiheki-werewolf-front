@@ -1,17 +1,18 @@
 import React, {useContext, useEffect, useState} from "react";
 import Comment from "./Comment"
 import {ClientContext} from "./Contexts";
+import SeihekiComment from "../types/SeihekiComment";
+import Client from "../api/v3/Client";
 
 
-/**
- * @param {number[]} props.commentIds Array of Comment
- * @param {number} props.seihekiId Id of seiheki which the comment belongs to.
- * @returns {JSX.Element}
- * @constructor
- */
-export default function Comments(props) {
+interface Props {
+    seihekiId: number
+    commentIds: number[]
+}
+
+export default function Comments(props: Props) {
     const client = useContext(ClientContext);
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState([] as SeihekiComment[]);
     useEffect(() => {
         Promise.all(props.commentIds.map(commentId => {
                 return client.getSeihekiComment(props.seihekiId, commentId);
@@ -19,15 +20,14 @@ export default function Comments(props) {
             .then(comments => {
                 setComments(comments);
             });
-    }, [props.seihekiId, props.commentIds])
-    return Object.entries(comments)
-        .map(([i, comment]) => {
+    }, [props.seihekiId, props.commentIds, client])
+    return comments.map((comment, i) => {
             return (<Comment key={comment.commentId} value={comment}
                              onUpvotesClick={() => handleUpvotesClick(i, comment.commentId, client, props.seihekiId, comments, setComments)} />)
         });
 }
 
-function handleUpvotesClick(i, commentId, client, seihekiId, comments, setComments) {
+function handleUpvotesClick(i: number, commentId: number, client: Client, seihekiId: number, comments: SeihekiComment[], setComments: React.Dispatch<React.SetStateAction<SeihekiComment[]>>) {
     client.patchSeihekiCommentUpvotes(seihekiId, commentId)
         .then(() => {
             return client.getSeihekiComment(seihekiId, commentId)
