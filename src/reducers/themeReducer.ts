@@ -4,9 +4,10 @@ import {
     FETCH_THEME_PENDING,
     FETCH_THEME_REJECTED
 } from "../actionTypes";
+import {FetchThemeFulfilledAction, FetchThemePendingAction, FetchThemeRejectedAction} from "../actions/themeActions";
+import {FetchSeihekiFulFilledAction} from "../actions/seihekiActions";
 
-const
-    emptyState = {
+const emptyState = {
     theme: {
         seihekiId: null,
         author: "",
@@ -19,7 +20,9 @@ const
     rejected: false
 }
 
-export default function themeReducer(state = emptyState, action) {
+type ThemeAction = FetchThemePendingAction | FetchThemeFulfilledAction | FetchThemeRejectedAction | FetchSeihekiFulFilledAction
+
+export default function themeReducer(state = emptyState, action: ThemeAction) {
     switch (action.type) {
         case FETCH_THEME_PENDING: {
             return { theme: state.theme, pending: true, fulfilled: false, rejected: false }
