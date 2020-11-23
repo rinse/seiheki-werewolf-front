@@ -7,20 +7,19 @@ import Theme from "./Theme";
 import {ClientContext} from "./Contexts";
 import {fetchTheme} from "../actions/themeActions";
 import {fetchHistory} from "../actions/historyActions";
+import Client from "../api/v3/Client";
+import {Dispatch} from "redux";
+import {RootState} from "../reducers/rootReducer";
 
-/**
- * @param props
- * @returns {JSX.Element}
- * @constructor
- */
-export default function Timeline(props) {
-    const theme = useSelector(state => state.theme);
-    const history = useSelector(state => state.history);
+
+export default function Timeline() {
+    const theme = useSelector((state: RootState) => state.theme);
+    const history = useSelector((state: RootState) => state.history);
     const dispatch = useDispatch();
     const client = React.useContext(ClientContext);
     React.useEffect(() => {
         handleReloadClick(client, dispatch);
-    }, [])
+    }, [client, dispatch])
     return (
         <Container>
             <ThemeHeader onReloadClick={() => handleReloadClick(client, dispatch)} />
@@ -33,17 +32,17 @@ export default function Timeline(props) {
     );
 }
 
-function handleReloadClick(client, dispatch) {
+function handleReloadClick(client: Client, dispatch: Dispatch<any>) {
     dispatch(fetchTheme(client));
     dispatch(fetchHistory(client));
 }
 
-function shuffleTheme(client, dispatch) {
+function shuffleTheme(client: Client, dispatch: Dispatch<any>) {
     client.postCards()
         .then(() => handleReloadClick(client, dispatch));
 }
 
-function disposeTheme(seihekiId, client, dispatch) {
+function disposeTheme(seihekiId: number, client: Client, dispatch: Dispatch<any>) {
     client.deleteCard(seihekiId)
         .then(() => handleReloadClick(client, dispatch))
         .then(() => {
