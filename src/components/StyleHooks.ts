@@ -9,3 +9,21 @@ export const useButtonStyles = makeStyles((theme: Theme) => createStyles({
 export const useTextFieldStyles = makeStyles((theme: Theme) => createStyles({
     root: { width: "100%" },
 }));
+
+export const useModalStyles = makeStyles((theme: Theme) => createStyles({
+    modal: {
+        margin: '5%',
+        display: 'block',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.default,
+    },
+    header: {
+        padding: '12px',
+        backgroundColor: theme.palette.background.default,
+    },
+    content: {
+        padding: '12px',
+        height: '40vh',
+        overflow: 'scroll',
+    },
+}))
