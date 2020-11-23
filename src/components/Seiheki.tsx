@@ -1,38 +1,42 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
 import TextareaAutosize from "react-textarea-autosize";
+import SeihekiBody from "./SeihekiBody";
 import Comments from "./Comments";
-import ThemeBody from "./ThemeBody";
-import {ClientContext} from "./Contexts";
 import {useDispatch, useSelector} from "react-redux";
+import {ClientContext} from "./Contexts";
 import {fetchSeiheki} from "../actions/seihekiActions";
 import Send from "./icons/Send";
+import {RootState} from "../reducers/rootReducer";
+import SeihekiObj from "../types/Seiheki";
+import Client from "../api/v3/Client";
+import {Dispatch} from "redux";
 
-export default function Theme(props) {
+interface Props {
+    value: SeihekiObj
+}
+
+export default function Seiheki(props: Props) {
     const seiheki = props.value;
-    const [showComments, setShowComments] = React.useState(false);
-    const [comment, setComment] = React.useState("");
-    const author = useSelector(state => state.author);
-    const isCommentSendButtonDisabled = comment <= 0 || author <= 0;
-    const client = React.useContext(ClientContext);
+    const [showComments, setShowComments] = useState(false);
+    const [comment, setComment] = useState("");
+    const author = useSelector((state: RootState) => state.author);
+    const isCommentSendButtonDisabled = comment.length <= 0 || author.length <= 0;
+    const client = useContext(ClientContext);
     const dispatch = useDispatch();
     return (
         <div>
-            <ThemeBody value={seiheki}
-                       onUpvotesClick={() => handleOnUpvotesClickTheme(seiheki.seihekiId, client, dispatch)}
-                       onCommentClick={() => setShowComments(true)}
-                       onDisposeClick={e => props.onDisposeClick(e)}
-                       onShuffleClick={e => props.onShuffleClick(e)}/>
+            <SeihekiBody value={seiheki}
+                         onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
+                         onCommentClick={() => setShowComments(true)} />
             <Modal show={showComments} onHide={() => setShowComments(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>お嬢様御一同からのご評注</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ThemeBody value={seiheki}
-                               onUpvotesClick={() => handleOnUpvotesClickTheme(seiheki.seihekiId, client, dispatch)}
-                               onCommentClick={() => {}}
-                               onDisposeClick={e => props.onDisposeClick(e)}
-                               onShuffleClick={e => props.onShuffleClick(e)}/>
+                    <SeihekiBody value={seiheki}
+                                 onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
+                                 onCommentClick={() => { /* Do nothing */ }} />
                     <div className="p-1" style={{backgroundColor: "#e6ecf0"}}/>
                     <Form>
                         <Form.Group className="mb-0">
@@ -42,7 +46,7 @@ export default function Theme(props) {
                     </Form>
                     <div className="text-right">
                         <Button variant="link" disabled={isCommentSendButtonDisabled} style={{fill: "#1da1f2"}}
-                                onClick={() => sendComment(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
+                                onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
                             <Send />
                         </Button>
                     </div>
@@ -53,14 +57,14 @@ export default function Theme(props) {
     );
 }
 
-function handleOnUpvotesClickTheme(seihekiId, client, dispatch) {
+function upvoteSeiheki(seihekiId: number, client: Client, dispatch: Dispatch<any>) {
     client.patchSeihekiUpvotes(seihekiId)
         .then(() => {
-            dispatch(fetchSeiheki(client, seihekiId));
-        })
+            return dispatch(fetchSeiheki(client, seihekiId))
+        });
 }
 
-function sendComment(seihekiId, author, comment, client, dispatch, setComment) {
+function sendCommentClick(seihekiId: number, author: string, comment: string, client: Client, dispatch: Dispatch<any>, setComment: React.Dispatch<React.SetStateAction<string>>) {
     return client.postSeihekiComment(seihekiId, author, comment)
         .then(() => setComment(''))
         .then(() => {

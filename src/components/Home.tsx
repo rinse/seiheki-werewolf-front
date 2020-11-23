@@ -8,19 +8,22 @@ import Send from "./icons/Send";
 import Reload from "./icons/Reload";
 import {useDispatch, useSelector} from "react-redux";
 import {putAuthor} from "../actions/authorActions";
-import {fetchSeiheki, fetchSeihekis} from "../actions/seihekiActions";
+import {fetchSeihekis} from "../actions/seihekiActions";
+import {RootState} from "../reducers/rootReducer";
+import Client from "../api/v3/Client";
+import {Dispatch} from "redux";
 
 
 export default function Home() {
     const [content, setContent] = React.useState("");
-    const author = useSelector(state => state.author);
+    const author = useSelector((state: RootState) => state.author);
     const submitButtonDisabled = author.length <= 0 || content.length <= 0;
-    const seihekis = useSelector(state => state.seihekis)
+    const seihekis = useSelector((state: RootState) => state.seihekis);
     const dispatch = useDispatch();
     const client = React.useContext(ClientContext);
     React.useEffect(() => {
         handleUpdate(client, author, dispatch);
-    }, [author]);
+    }, [author, client, dispatch]);
     return (
         <div className="container">
             <div className="text-center">
@@ -47,24 +50,17 @@ export default function Home() {
                 </Button>
             </div>
             <div className="m-3" />
-            <Seihekis value={seihekis.seihekis.collection} onUpvotesClick={e => handleUpvotesClick(e, client, seihekis.seihekis.collection, dispatch)} />
+            <Seihekis value={seihekis.seihekis.collection} />
         </div>
     );
 }
 
-function handleSubmit(client, author, content, setContent, dispatch) {
+function handleSubmit(client: Client, author: string, content: string, setContent: React.Dispatch<React.SetStateAction<string>>, dispatch: Dispatch<any>) {
     return client.postSeihekis(author, content)
         .then(() => handleUpdate(client, author, dispatch))
         .then(() => setContent(""));
 }
 
-function handleUpdate(client, author, dispatch) {
+function handleUpdate(client: Client, author: string, dispatch: Dispatch<any>) {
     dispatch(fetchSeihekis(author, client));
-}
-
-function handleUpvotesClick(e, client, seihekis, dispatch) {
-    client.patchSeihekiUpvotes(e.seihekiId)
-        .then(() => {
-            return dispatch(fetchSeiheki(client, e.seihekiId))
-        });
 }

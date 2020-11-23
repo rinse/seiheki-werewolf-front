@@ -10,3 +10,5 @@ export const rootReducer = combineReducers({
     seihekis: seihekisReducer,
     theme: themeReducer,
 })
+
+export type RootState = ReturnType<typeof rootReducer>

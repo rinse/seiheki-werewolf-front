@@ -1,12 +1,12 @@
 import React from "react";
 import Reload from "./icons/Reload";
 
-/**
- * @param {function} props.onReloadClick
- * @returns {JSX.Element}
- * @constructor
- */
-export default function ThemeHeader(props) {
+
+interface Props {
+    onReloadClick: () => void
+}
+
+export default function ThemeHeader(props: Props) {
     return (
         <div className="border">
             <div className="m-4" style={{fontSize: "2rem"}}>

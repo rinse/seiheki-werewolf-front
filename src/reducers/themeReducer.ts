@@ -4,11 +4,20 @@ import {
     FETCH_THEME_PENDING,
     FETCH_THEME_REJECTED
 } from "../actionTypes";
+import {FetchThemeFulfilledAction, FetchThemePendingAction, FetchThemeRejectedAction} from "../actions/themeActions";
+import {FetchSeihekiFulFilledAction} from "../actions/seihekiActions";
+import Seiheki from "../types/Seiheki";
 
-const
-    emptyState = {
+interface ThemeState {
+    theme: Seiheki
+    pending: boolean
+    fulfilled: boolean
+    rejected: boolean
+}
+
+const emptyState: ThemeState = {
     theme: {
-        seihekiId: null,
+        seihekiId: -1,
         author: "",
         content: "Theme will be shown here.",
         upvotes: 0,
@@ -19,7 +28,9 @@ const
     rejected: false
 }
 
-export default function themeReducer(state = emptyState, action) {
+type ThemeAction = FetchThemePendingAction | FetchThemeFulfilledAction | FetchThemeRejectedAction | FetchSeihekiFulFilledAction
+
+export default function themeReducer(state: ThemeState = emptyState, action: ThemeAction) {
     switch (action.type) {
         case FETCH_THEME_PENDING: {
             return { theme: state.theme, pending: true, fulfilled: false, rejected: false }
