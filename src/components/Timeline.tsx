@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Container} from "react-bootstrap";
+import {Container} from "@material-ui/core";
 import ThemeHeader from "./ThemeHeader";
 import Seihekis from "./Seihekis";
 import Theme from "./Theme";
