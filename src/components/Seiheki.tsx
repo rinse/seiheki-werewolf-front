@@ -7,20 +7,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {ClientContext} from "./Contexts";
 import {fetchSeiheki} from "../actions/seihekiActions";
 import Send from "./icons/Send";
+import {RootState} from "../reducers/rootReducer";
+import SeihekiObj from "../types/Seiheki";
+import Client from "../api/v3/Client";
+import {Dispatch} from "redux";
 
-/**
- * @param {Object} props.value Seiheki
- * @param {Function} props.onUpvotesClick
- * @param {Function} props.onSendCommentClick
- * @returns {JSX.Element}
- * @constructor
- */
-export default function Seiheki(props) {
+interface Props {
+    value: SeihekiObj
+}
+
+export default function Seiheki(props: Props) {
     const seiheki = props.value;
     const [showComments, setShowComments] = useState(false);
     const [comment, setComment] = useState("");
-    const author = useSelector(state => state.author);
-    const isCommentSendButtonDisabled = comment <= 0 || author <= 0;
+    const author = useSelector((state: RootState) => state.author);
+    const isCommentSendButtonDisabled = comment.length <= 0 || author.length <= 0;
     const client = useContext(ClientContext);
     const dispatch = useDispatch();
     return (
@@ -45,7 +46,7 @@ export default function Seiheki(props) {
                     </Form>
                     <div className="text-right">
                         <Button variant="link" disabled={isCommentSendButtonDisabled} style={{fill: "#1da1f2"}}
-                                onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, setComment, dispatch)}>
+                                onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
                             <Send />
                         </Button>
                     </div>
@@ -56,14 +57,14 @@ export default function Seiheki(props) {
     );
 }
 
-function upvoteSeiheki(seihekiId, client, dispatch) {
+function upvoteSeiheki(seihekiId: number, client: Client, dispatch: Dispatch<any>) {
     client.patchSeihekiUpvotes(seihekiId)
         .then(() => {
             return dispatch(fetchSeiheki(client, seihekiId))
         });
 }
 
-function sendCommentClick(seihekiId, author, comment, client, setComment, dispatch) {
+function sendCommentClick(seihekiId: number, author: string, comment: string, client: Client, dispatch: Dispatch<any>, setComment: React.Dispatch<React.SetStateAction<string>>) {
     return client.postSeihekiComment(seihekiId, author, comment)
         .then(() => setComment(''))
         .then(() => {
