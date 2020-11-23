@@ -6,7 +6,7 @@ import {store} from "./store";
 import {ClientContext} from "./components/Contexts";
 import Client from "./api/v3/Client";
 
-const serverHost = process.env.REACT_APP_SERVER_HOST;
+const serverHost = process.env.REACT_APP_SERVER_HOST || "";
 
 ReactDOM.render(
     <Provider store={store}>
