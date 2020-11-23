@@ -21,10 +21,13 @@ export default function Comments(props: Props) {
                 setComments(comments);
             });
     }, [props.seihekiId, props.commentIds, client])
-    return comments.map((comment, i) => {
-            return (<Comment key={comment.commentId} value={comment}
-                             onUpvotesClick={() => handleUpvotesClick(i, comment.commentId, client, props.seihekiId, comments, setComments)} />)
-        });
+    return (
+        <div>
+            {comments.map((comment, i) =>
+                <Comment key={comment.commentId} value={comment}
+                         onUpvotesClick={() => handleUpvotesClick(i, comment.commentId, client, props.seihekiId, comments, setComments)} />)
+            }
+        </div>);
 }
 
 function handleUpvotesClick(i: number, commentId: number, client: Client, seihekiId: number, comments: SeihekiComment[], setComments: React.Dispatch<React.SetStateAction<SeihekiComment[]>>) {

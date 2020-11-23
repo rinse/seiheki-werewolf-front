@@ -7,13 +7,24 @@ import {ClientContext} from "./Contexts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSeiheki} from "../actions/seihekiActions";
 import Send from "./icons/Send";
+import {DropdownItemProps} from "react-bootstrap/DropdownItem";
+import Seiheki from "../types/Seiheki";
+import {RootState} from "../reducers/rootReducer";
+import Client from "../api/v3/Client";
+import {Dispatch} from "redux";
 
-export default function Theme(props) {
+interface Props {
+    value: Seiheki
+    onDisposeClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void
+    onShuffleClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void
+}
+
+export default function Theme(props: Props) {
     const seiheki = props.value;
     const [showComments, setShowComments] = React.useState(false);
     const [comment, setComment] = React.useState("");
-    const author = useSelector(state => state.author);
-    const isCommentSendButtonDisabled = comment <= 0 || author <= 0;
+    const author = useSelector((state: RootState) => state.author);
+    const isCommentSendButtonDisabled = comment.length <= 0 || author.length <= 0;
     const client = React.useContext(ClientContext);
     const dispatch = useDispatch();
     return (
@@ -53,14 +64,14 @@ export default function Theme(props) {
     );
 }
 
-function handleOnUpvotesClickTheme(seihekiId, client, dispatch) {
+function handleOnUpvotesClickTheme(seihekiId: number, client: Client, dispatch: Dispatch<any>) {
     client.patchSeihekiUpvotes(seihekiId)
         .then(() => {
             dispatch(fetchSeiheki(client, seihekiId));
         })
 }
 
-function sendComment(seihekiId, author, comment, client, dispatch, setComment) {
+function sendComment(seihekiId: number, author: string, comment: string, client: Client, dispatch: Dispatch<any>, setComment: React.Dispatch<React.SetStateAction<string>>) {
     return client.postSeihekiComment(seihekiId, author, comment)
         .then(() => setComment(''))
         .then(() => {
