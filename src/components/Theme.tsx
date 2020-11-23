@@ -7,7 +7,6 @@ import {ClientContext} from "./Contexts";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSeiheki} from "../actions/seihekiActions";
 import Send from "./icons/Send";
-import {DropdownItemProps} from "react-bootstrap/DropdownItem";
 import Seiheki from "../types/Seiheki";
 import {RootState} from "../reducers/rootReducer";
 import Client from "../api/v3/Client";
@@ -15,8 +14,8 @@ import {Dispatch} from "redux";
 
 interface Props {
     value: Seiheki
-    onDisposeClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void
-    onShuffleClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void
+    onDisposeClick: (e: React.MouseEvent<Element, MouseEvent>) => void
+    onShuffleClick: (e: React.MouseEvent<Element, MouseEvent>) => void
 }
 
 export default function Theme(props: Props) {
