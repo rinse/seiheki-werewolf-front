@@ -1,8 +1,8 @@
 import React from "react";
-import {Row, Col} from "react-bootstrap";
-import UpvotesBadge from "./badges/UpvotesBadge";
 import CommentBadge from "./badges/CommentBadge";
 import Seiheki from "../types/Seiheki";
+import {Grid} from "@material-ui/core";
+import {FavoriteBorder} from "@material-ui/icons";
 
 interface Properties {
     value: Seiheki;
@@ -13,13 +13,15 @@ interface Properties {
 export default function SeihekiFooter(props: Properties) {
     const seiheki = props.value;
     return (
-        <Row>
-            <Col xs={{ span: 4, offset: 2}} onClick={(e: React.MouseEvent<Element, MouseEvent>) => props.onCommentClick(e)}>
+        <Grid container>
+            <Grid item xs={2} />
+            <Grid item xs={4}
+                  onClick={(e: React.MouseEvent<Element, MouseEvent>) => props.onCommentClick(e)}>
                 <CommentBadge>{seiheki.commentIds.length}</CommentBadge>
-            </Col>
-            <Col xs={{ span: 4 }} onClick={(e: React.MouseEvent<Element, MouseEvent>) => props.onUpvotesClick(e)}>
-                <UpvotesBadge>{seiheki.upvotes}</UpvotesBadge>
-            </Col>
-        </Row>
+            </Grid>
+            <Grid item xs={4} onClick={(e: React.MouseEvent<Element, MouseEvent>) => props.onUpvotesClick(e)}>
+                <FavoriteBorder /> {seiheki.upvotes}
+            </Grid>
+        </Grid>
     );
 }
