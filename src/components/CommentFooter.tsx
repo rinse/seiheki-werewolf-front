@@ -1,7 +1,7 @@
 import React from "react";
-import UpvotesBadge from "./badges/UpvotesBadge";
-import {Col, Row} from "react-bootstrap";
 import SeihekiComment from "../types/SeihekiComment";
+import {FavoriteBorder} from "@material-ui/icons";
+import {Grid} from "@material-ui/core";
 
 interface Properties {
     value: SeihekiComment;
@@ -10,10 +10,11 @@ interface Properties {
 
 export default function CommentFooter({ value, onUpvotesClick }: Properties) {
     return (
-        <Row>
-            <Col xs={{ span: 4, offset: 6 }} onClick={(e: React.MouseEvent<Element, MouseEvent>) => onUpvotesClick(e)}>
-                <UpvotesBadge>{value.upvotes}</UpvotesBadge>
-            </Col>
-        </Row>
+        <Grid container>
+            <Grid item xs={6} />
+            <Grid item xs={4} onClick={(e: React.MouseEvent<Element, MouseEvent>) => onUpvotesClick(e)}>
+                <FavoriteBorder /> {value.upvotes}
+            </Grid>
+        </Grid>
     );
 }

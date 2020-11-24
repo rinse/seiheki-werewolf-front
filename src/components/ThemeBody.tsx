@@ -3,14 +3,13 @@ import Content from "./Content";
 import QuestionCircle from "./icons/QuestionCircle"
 import ThemeFooter from "./ThemeFooter";
 import Seiheki from "../types/Seiheki";
-import {DropdownItemProps} from "react-bootstrap/DropdownItem";
 
 interface Properties {
     value: Seiheki;
     onUpvotesClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
     onCommentClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
-    onDisposeClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void;
-    onShuffleClick: (e: React.MouseEvent<DropdownItemProps, MouseEvent>) => void;
+    onDisposeClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
+    onShuffleClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
 /**

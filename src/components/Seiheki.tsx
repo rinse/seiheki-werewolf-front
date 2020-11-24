@@ -1,12 +1,19 @@
 import React, {useContext, useState} from "react";
-import {Button, Form, Modal} from "react-bootstrap";
-import TextareaAutosize from "react-textarea-autosize";
+import {IconButton} from "@material-ui/core";
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from "@material-ui/core/Fade";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Modal from "@material-ui/core/Modal";
 import SeihekiBody from "./SeihekiBody";
 import Comments from "./Comments";
+import SendIcon from "@material-ui/icons/Send";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import {useButtonStyles, useModalStyles, useTextFieldStyles} from "./StyleHooks";
 import {useDispatch, useSelector} from "react-redux";
 import {ClientContext} from "./Contexts";
 import {fetchSeiheki} from "../actions/seihekiActions";
-import Send from "./icons/Send";
 import {RootState} from "../reducers/rootReducer";
 import SeihekiObj from "../types/Seiheki";
 import Client from "../api/v3/Client";
@@ -24,34 +31,38 @@ export default function Seiheki(props: Props) {
     const isCommentSendButtonDisabled = comment.length <= 0 || author.length <= 0;
     const client = useContext(ClientContext);
     const dispatch = useDispatch();
+    const modalStyles = useModalStyles();
+    const buttonStyles = useButtonStyles();
+    const textFieldStyles = useTextFieldStyles();
     return (
         <div>
             <SeihekiBody value={seiheki}
                          onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
                          onCommentClick={() => setShowComments(true)} />
-            <Modal show={showComments} onHide={() => setShowComments(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>お嬢様御一同からのご評注</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <SeihekiBody value={seiheki}
-                                 onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
-                                 onCommentClick={() => { /* Do nothing */ }} />
-                    <div className="p-1" style={{backgroundColor: "#e6ecf0"}}/>
-                    <Form>
-                        <Form.Group className="mb-0">
-                            <TextareaAutosize className="form-control" placeholder="評注をご入力ください" value={comment}
-                                              onChange={e => setComment(e.target.value)} />
-                        </Form.Group>
-                    </Form>
-                    <div className="text-right">
-                        <Button variant="link" disabled={isCommentSendButtonDisabled} style={{fill: "#1da1f2"}}
-                                onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
-                            <Send />
-                        </Button>
-                    </div>
-                    <Comments seihekiId={seiheki.seihekiId} commentIds={seiheki.commentIds} />
-                </Modal.Body>
+            <Modal open={showComments} onClose={() => setShowComments(false)}
+                    BackdropComponent={Backdrop}
+                    className={modalStyles.modal}
+                    closeAfterTransition
+                    >
+                <Fade in={showComments}>
+                    <Card>
+                        <CardContent className={modalStyles.header}>
+                            <Typography variant="h5">お嬢様御一同からのご評注</Typography>
+                            <SeihekiBody value={seiheki}
+                                         onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
+                                         onCommentClick={() => { /* Do nothing */ }} />
+                            <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles}
+                                       onChange={e => setComment(e.target.value)} />
+                            <IconButton color="primary" classes={buttonStyles} disabled={isCommentSendButtonDisabled}
+                                        onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
+                                <SendIcon fontSize="large" />
+                            </IconButton>
+                        </CardContent>
+                        <CardContent className={modalStyles.content} >
+                            <Comments seihekiId={seiheki.seihekiId} commentIds={seiheki.commentIds} />
+                        </CardContent>
+                    </Card>
+                </Fade>
             </Modal>
         </div>
     );
