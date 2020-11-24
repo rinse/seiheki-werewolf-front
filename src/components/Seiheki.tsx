@@ -18,6 +18,7 @@ import {RootState} from "../reducers/rootReducer";
 import SeihekiObj from "../types/Seiheki";
 import Client from "../api/v3/Client";
 import {Dispatch} from "redux";
+import {putAuthor} from "../actions/authorActions";
 
 interface Props {
     value: SeihekiObj
@@ -53,6 +54,9 @@ export default function Seiheki(props: Props) {
                                          onCommentClick={() => { /* Do nothing */ }} />
                             <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles}
                                        onChange={e => setComment(e.target.value)} />
+                            <TextField label="お名前" value={author}
+                                       size="small" variant="standard" required
+                                       onChange={e => { dispatch(putAuthor(e.target.value)); }} />
                             <IconButton color="primary" classes={buttonStyles} disabled={isCommentSendButtonDisabled}
                                         onClick={() => sendCommentClick(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
                                 <SendIcon fontSize="large" />

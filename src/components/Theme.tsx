@@ -18,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import Fade from "@material-ui/core/Fade";
 import Card from "@material-ui/core/Card";
 import Backdrop from "@material-ui/core/Backdrop";
+import {putAuthor} from "../actions/authorActions";
 
 
 interface Props {
@@ -57,8 +58,11 @@ export default function Theme(props: Props) {
                                        onCommentClick={() => {}}
                                        onDisposeClick={e => props.onDisposeClick(e)}
                                        onShuffleClick={e => props.onShuffleClick(e)}/>
-                            <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles}
+                            <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles} required
                                        onChange={e => setComment(e.target.value)} />
+                            <TextField label="お名前" value={author}
+                                       size="small" variant="standard" required
+                                       onChange={e => { dispatch(putAuthor(e.target.value)); }} />
                             <IconButton color="primary" classes={buttonStyles} disabled={isCommentSendButtonDisabled}
                                         onClick={() => sendComment(seiheki.seihekiId, author, comment, client, dispatch, setComment)}>
                                 <SendIcon fontSize="large" />
