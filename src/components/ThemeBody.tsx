@@ -1,16 +1,13 @@
 import React from "react";
 import QuestionCircle from "./icons/QuestionCircle"
-import ThemeFooter from "./ThemeFooter";
 import Seiheki from "../types/Seiheki";
-import {createStyles, Theme, Typography} from "@material-ui/core";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
+import SeihekiFooter from "./SeihekiFooter";
 
 interface Properties {
     value: Seiheki;
     onUpvotesClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
     onCommentClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
-    onDisposeClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
-    onShuffleClick: (e: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -30,11 +27,9 @@ export default function ThemeBody(props: Properties) {
                 </div>
                 <Typography className={classes.typography}>{seiheki.content}</Typography>
             </div>
-            <ThemeFooter value={seiheki}
-                         onUpvotesClick={e => props.onUpvotesClick(e)}
-                         onCommentClick={e => props.onCommentClick(e)}
-                         onDisposeClick={e => props.onDisposeClick(e)}
-                         onShuffleClick={e => props.onShuffleClick(e)}/>
+            <SeihekiFooter value={seiheki}
+                           onUpvotesClick={e => props.onUpvotesClick(e)}
+                           onCommentClick={e => props.onCommentClick(e)} />
         </div>
     );
 }

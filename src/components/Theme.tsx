@@ -42,9 +42,7 @@ export default function Theme(props: Props) {
         <div>
             <ThemeBody value={seiheki}
                        onUpvotesClick={() => handleOnUpvotesClickTheme(seiheki.seihekiId, client, dispatch)}
-                       onCommentClick={() => setShowComments(true)}
-                       onDisposeClick={e => props.onDisposeClick(e)}
-                       onShuffleClick={e => props.onShuffleClick(e)}/>
+                       onCommentClick={() => setShowComments(true)} />
             <Modal open={showComments} onClose={() => setShowComments(false)}
                        BackdropComponent={Backdrop}
                        className={modalStyles.modal}
@@ -55,9 +53,7 @@ export default function Theme(props: Props) {
                             <Typography variant="h5">お嬢様御一同からのご評注</Typography>
                             <ThemeBody value={seiheki}
                                        onUpvotesClick={() => handleOnUpvotesClickTheme(seiheki.seihekiId, client, dispatch)}
-                                       onCommentClick={() => {}}
-                                       onDisposeClick={e => props.onDisposeClick(e)}
-                                       onShuffleClick={e => props.onShuffleClick(e)}/>
+                                       onCommentClick={() => {}} />
                             <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles} required
                                        onChange={e => setComment(e.target.value)} />
                             <TextField label="お名前" value={author}
