@@ -19,9 +19,11 @@ import SeihekiObj from "../types/Seiheki";
 import Client from "../api/v3/Client";
 import {Dispatch} from "redux";
 import {putAuthor} from "../actions/authorActions";
+import ThemeBody from "./ThemeBody";
 
 interface Props {
     value: SeihekiObj
+    isTheme?: boolean
 }
 
 export default function Seiheki(props: Props) {
@@ -35,11 +37,12 @@ export default function Seiheki(props: Props) {
     const modalStyles = useModalStyles();
     const buttonStyles = useButtonStyles();
     const textFieldStyles = useTextFieldStyles();
+    const Body = (props.isTheme ?? false) ? ThemeBody : SeihekiBody;
     return (
         <div>
-            <SeihekiBody value={seiheki}
-                         onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
-                         onCommentClick={() => setShowComments(true)} />
+            <Body value={seiheki}
+                  onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
+                  onCommentClick={() => setShowComments(true)} />
             <Modal open={showComments} onClose={() => setShowComments(false)}
                     BackdropComponent={Backdrop}
                     className={modalStyles.modal}
@@ -49,9 +52,9 @@ export default function Seiheki(props: Props) {
                     <Card>
                         <CardContent className={modalStyles.header}>
                             <Typography variant="h5">お嬢様御一同からのご評注</Typography>
-                            <SeihekiBody value={seiheki}
-                                         onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
-                                         onCommentClick={() => { /* Do nothing */ }} />
+                            <Body value={seiheki}
+                                  onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
+                                  onCommentClick={() => { /* Do nothing */ }} />
                             <TextField label="評注をご入力ください" value={comment} multiline classes={textFieldStyles}
                                        onChange={e => setComment(e.target.value)} />
                             <TextField label="お名前" value={author}
