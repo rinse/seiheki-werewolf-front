@@ -1,23 +1,31 @@
 import React from "react";
-import Reload from "./icons/Reload";
+import {Refresh} from "@material-ui/icons";
+import {createStyles, IconButton, Theme} from "@material-ui/core";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 
 interface Props {
     onReloadClick: () => void
 }
 
+export const useStyles = makeStyles((theme: Theme) => createStyles({
+    title: {flexGrow: 1},
+}));
+
 export default function ThemeHeader(props: Props) {
+    const classes = useStyles();
     return (
         <div className="border">
-            <div className="m-4" style={{fontSize: "2rem"}}>
-                現在のお題
-                <div className="text-right" style={{float: "right"}} data-toggle="tooltip" title="Reload Theme"
-                     onClick={() => props.onReloadClick()} >
-                    <div style={{fill: "#6c757d"}}>
-                        <Reload />
-                    </div>
-                </div>
-            </div>
+            <Toolbar>
+                <Typography variant="h4" className={classes.title}>
+                    現在のお題
+                </Typography>
+                <IconButton onClick={() => props.onReloadClick()}>
+                    <Refresh fontSize="large"/>
+                </IconButton>
+            </Toolbar>
         </div>
     );
 }
