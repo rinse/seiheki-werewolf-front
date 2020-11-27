@@ -4,6 +4,7 @@ import {createStyles, IconButton, Theme} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 
 interface Props {
@@ -17,7 +18,7 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
 export default function ThemeHeader(props: Props) {
     const classes = useStyles();
     return (
-        <div className="border">
+        <Box border={1} borderColor="#dee2e6">
             <Toolbar>
                 <Typography variant="h4" className={classes.title}>
                     現在のお題
@@ -26,6 +27,6 @@ export default function ThemeHeader(props: Props) {
                     <Refresh fontSize="large"/>
                 </IconButton>
             </Toolbar>
-        </div>
+        </Box>
     );
 }

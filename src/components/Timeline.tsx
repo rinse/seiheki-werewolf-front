@@ -10,6 +10,7 @@ import Client from "../api/v3/Client";
 import {Dispatch} from "redux";
 import {RootState} from "../reducers/rootReducer";
 import Seiheki from "./Seiheki";
+import Box from "@material-ui/core/Box";
 
 
 export default function Timeline() {
@@ -24,7 +25,7 @@ export default function Timeline() {
         <Container>
             <ThemeHeader onReloadClick={() => handleReloadClick(client, dispatch)} />
             <Seiheki value={theme.theme} isTheme={true} />
-            <div className="p-1" style={{backgroundColor: "#e6ecf0"}}/>
+            <Box p={1}  style={{backgroundColor: "#e6ecf0"}}/>
             <Seihekis value={history.history.collection} />
         </Container>
     );
