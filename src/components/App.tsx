@@ -15,6 +15,7 @@ import {disposeTheme, shuffleTheme} from "../util";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import TabPanel from "./TabPanel";
+import Box from "@material-ui/core/Box";
 
 
 const useNavStyles = makeStyles(() =>
@@ -43,7 +44,7 @@ export default function App() {
     const client = React.useContext(ClientContext);
     const [tabValue, setTabValue] = useState(0);
     return (
-        <div>
+        <Box>
             <AppBar position="static" classes={{root: styles.root}}>
                 <Toolbar>
                     <Typography variant="h6" className={styles.title}>
@@ -57,14 +58,14 @@ export default function App() {
                             onShuffleClick={() => shuffleTheme(client, dispatch)}/>
                 </Toolbar>
             </AppBar>
-            <Container>
+            <Box padding={2}>
                 <TabPanel index={0} value={tabValue}>
                     <Home />
                 </TabPanel>
                 <TabPanel index={1} value={tabValue}>
                     <Timeline />
                 </TabPanel>
-            </Container>
-        </div>
+            </Box>
+        </Box>
     );
 }
