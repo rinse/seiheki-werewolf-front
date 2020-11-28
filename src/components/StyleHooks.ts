@@ -16,11 +16,11 @@ export const useModalStyles = makeStyles((theme: Theme) => createStyles({
         margin: '5%',
         display: 'block',
         overflow: 'hidden',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
     },
     header: {
         padding: '12px',
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
     },
     content: {
         padding: '12px',

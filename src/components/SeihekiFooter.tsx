@@ -13,7 +13,7 @@ interface Properties {
 
 export default function SeihekiFooter(props: Properties) {
     const seiheki = props.value;
-    const { iconButton: iconButton, ...rippleClasses } = useUpvoteStyles();
+    const { iconButton, ...rippleClasses } = useUpvoteStyles();
     return (
         <Grid container>
             <Grid item xs={2} />

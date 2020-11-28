@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {IconButton} from "@material-ui/core";
+import {createStyles, IconButton, Theme} from "@material-ui/core";
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from "@material-ui/core/Fade";
 import Card from "@material-ui/core/Card";
@@ -20,14 +20,24 @@ import Client from "../api/v3/Client";
 import {Dispatch} from "redux";
 import {putAuthor} from "../actions/authorActions";
 import ThemeBody from "./ThemeBody";
+import Box from "@material-ui/core/Box";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 interface Props {
     value: SeihekiObj
     isTheme?: boolean
 }
 
+export const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {
+        "&:hover": {
+            backgroundColor: theme.palette.background.default
+        },
+    },
+}));
+
 export default function Seiheki(props: Props) {
-    const seiheki = props.value;
+    const {value: seiheki, isTheme} = props;
     const [showComments, setShowComments] = useState(false);
     const [comment, setComment] = useState("");
     const author = useSelector((state: RootState) => state.author);
@@ -37,17 +47,17 @@ export default function Seiheki(props: Props) {
     const modalStyles = useModalStyles();
     const buttonStyles = useButtonStyles();
     const textFieldStyles = useTextFieldStyles();
-    const Body = (props.isTheme ?? false) ? ThemeBody : SeihekiBody;
+    const Body = (isTheme ?? false) ? ThemeBody : SeihekiBody;
+    const classes = useStyles();
     return (
-        <div>
+        <Box className={classes.root}>
             <Body value={seiheki}
                   onUpvotesClick={() => upvoteSeiheki(seiheki.seihekiId, client, dispatch)}
                   onCommentClick={() => setShowComments(true)} />
             <Modal open={showComments} onClose={() => setShowComments(false)}
                     BackdropComponent={Backdrop}
                     className={modalStyles.modal}
-                    closeAfterTransition
-                    >
+                    closeAfterTransition>
                 <Fade in={showComments}>
                     <Card>
                         <CardContent className={modalStyles.header}>
@@ -71,7 +81,7 @@ export default function Seiheki(props: Props) {
                     </Card>
                 </Fade>
             </Modal>
-        </div>
+        </Box>
     );
 }
 
