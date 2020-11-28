@@ -2,6 +2,7 @@ import React from "react";
 import SeihekiComment from "../types/SeihekiComment";
 import {FavoriteBorder} from "@material-ui/icons";
 import {Grid} from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 
 interface Properties {
     value: SeihekiComment;
@@ -12,8 +13,11 @@ export default function CommentFooter({ value, onUpvotesClick }: Properties) {
     return (
         <Grid container>
             <Grid item xs={6} />
-            <Grid item xs={4} onClick={(e: React.MouseEvent<Element, MouseEvent>) => onUpvotesClick(e)}>
-                <FavoriteBorder /> {value.upvotes}
+            <Grid item xs={4}>
+                <IconButton onClick={(e: React.MouseEvent<Element, MouseEvent>) => onUpvotesClick(e)}>
+                    <FavoriteBorder />
+                </IconButton>
+                {value.upvotes}
             </Grid>
         </Grid>
     );

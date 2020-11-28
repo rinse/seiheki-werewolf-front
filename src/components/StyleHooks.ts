@@ -1,5 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {createStyles, Theme} from "@material-ui/core";
+import {fade} from "@material-ui/core/styles/colorManipulator"
 
 export const useButtonStyles = makeStyles((theme: Theme) => createStyles({
     colorPrimary: {color: "#1da1f2"},
@@ -27,3 +28,28 @@ export const useModalStyles = makeStyles((theme: Theme) => createStyles({
         overflow: 'scroll',
     },
 }))
+
+export const useUpvoteStyles = makeStyles((theme: Theme) => createStyles({
+    iconButton: {
+        "&:hover": {
+            backgroundColor: fade("rgb(224, 36, 94)", 0.3),
+        },
+    },
+    child: {
+        backgroundColor: "rgb(224, 36, 94)",
+    },
+    rippleVisible: {
+        opacity: 0.3,
+        animation: `$enter 550ms ${theme.transitions.easing.easeInOut}`,
+    },
+    "@keyframes enter": {
+        "0%": {
+            transform: "scale(0)",
+            opacity: 0.1,
+        },
+        "100%": {
+            transform: "scale(1)",
+            opacity: 0.5,
+        },
+    },
+}));
