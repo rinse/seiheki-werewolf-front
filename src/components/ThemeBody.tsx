@@ -28,7 +28,7 @@ export default function ThemeBody(props: Properties) {
     const classes = useStyles();
     return (
         <Box border={1} borderColor="#dee2e6">
-            <Box m={4} display="flex" flexDirection="row">
+            <Box m={4} display="flex" flexDirection="row" onClick={e => props.onCommentClick(e)}>
                 <Box mr={4}>
                     <Help className={classes.avatar} fontSize="large" />
                 </Box>
