@@ -4,6 +4,7 @@ import {createStyles, makeStyles, Theme, Typography} from "@material-ui/core";
 import SeihekiFooter from "./SeihekiFooter";
 import {Help} from "@material-ui/icons";
 import grey from "@material-ui/core/colors/grey";
+import Box from "@material-ui/core/Box";
 
 interface Properties {
     value: Seiheki;
@@ -26,16 +27,16 @@ export default function ThemeBody(props: Properties) {
     const seiheki = props.value;
     const classes = useStyles();
     return (
-        <div className="border">
-            <div className="m-4 d-flex flex-row">
-                <div className="mr-4">
+        <Box border={1} borderColor="#dee2e6">
+            <Box m={4} display="flex" flexDirection="row">
+                <Box mr={4}>
                     <Help className={classes.avatar} fontSize="large" />
-                </div>
+                </Box>
                 <Typography className={classes.typography}>{seiheki.content}</Typography>
-            </div>
+            </Box>
             <SeihekiFooter value={seiheki}
                            onUpvotesClick={e => props.onUpvotesClick(e)}
                            onCommentClick={e => props.onCommentClick(e)} />
-        </div>
+        </Box>
     );
 }

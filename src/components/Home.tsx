@@ -13,6 +13,8 @@ import {Refresh} from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import {useButtonStyles, useTextFieldStyles} from "./StyleHooks";
 import TextField from "@material-ui/core/TextField";
+import {Box} from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 
 
 export default function Home() {
@@ -28,10 +30,11 @@ export default function Home() {
     const buttonStyles = useButtonStyles();
     const textFieldStyles = useTextFieldStyles();
     return (
-        <div className="container">
-            <div className="text-center">
+        <Container>
+            <Box>
                 <HowToPlay />
-            </div>
+            </Box>
+            <Box m={4} />
             <form>
                 <TextField label="お名前をご入力ください" classes={textFieldStyles}
                            value={author}
@@ -39,7 +42,7 @@ export default function Home() {
                 <TextField label="ご性癖をご入力ください" value={content} multiline classes={textFieldStyles}
                            onChange={e => { setContent(e.target.value); }} />
             </form>
-            <div className="text-right">
+            <Box textAlign="right">
                 <IconButton color="secondary" classes={buttonStyles}
                             onClick={() => handleUpdate(client, author, dispatch)}>
                     <Refresh fontSize="large" />
@@ -48,10 +51,10 @@ export default function Home() {
                             onClick={() => handleSubmit(client, author, content, setContent, dispatch)}>
                     <SendIcon fontSize="large" />
                 </IconButton>
-            </div>
-            <div className="m-3" />
+            </Box>
+            <Box m={2} />
             <Seihekis value={seihekis.seihekis.collection} />
-        </div>
+        </Container>
     );
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import CommentFooter from "./CommentFooter";
 import SeihekiComment from "../types/SeihekiComment";
 import {Typography} from "@material-ui/core";
+import Box from "@material-ui/core/Box";
 
 interface Properties {
     value: SeihekiComment;
@@ -10,12 +11,12 @@ interface Properties {
 
 export default function Comment({ value, onUpvotesClick }: Properties) {
     return (
-        <div className="border">
-            <div className="m-4">
+        <Box border={1} borderColor="#dee2e6">
+            <Box m={4}>
                 <Typography noWrap><b>{value.author}</b></Typography>
                 <Typography>{value.content}</Typography>
-            </div>
+            </Box>
             <CommentFooter value={value} onUpvotesClick={e => onUpvotesClick(e)} />
-        </div>
+        </Box>
     );
 }

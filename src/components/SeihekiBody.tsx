@@ -3,6 +3,7 @@ import SeihekiFooter from "./SeihekiFooter";
 import Seiheki from "../types/Seiheki";
 import {createStyles, Theme, Typography} from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Box from "@material-ui/core/Box";
 
 interface Properties {
     value: Seiheki;
@@ -20,12 +21,12 @@ export default function SeihekiBody(props: Properties) {
     const seiheki = props.value;
     const classes = useStyles();
     return (
-        <div className="border">
-            <div className="m-4">
+        <Box border={1} borderColor="#dee2e6">
+            <Box m={4}>
                 <Typography noWrap><b>{seiheki.author}</b></Typography>
                 <Typography className={classes.typography}>{seiheki.content}</Typography>
-            </div>
+            </Box>
             <SeihekiFooter value={seiheki} onUpvotesClick={e => props.onUpvotesClick(e)} onCommentClick={e => props.onCommentClick(e)} />
-        </div>
+        </Box>
     );
 }
