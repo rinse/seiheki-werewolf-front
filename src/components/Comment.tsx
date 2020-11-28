@@ -12,7 +12,7 @@ interface Properties {
 export default function Comment({ value, onUpvotesClick }: Properties) {
     return (
         <Box border={1} borderColor="#dee2e6">
-            <Box m={4}>
+            <Box m={2}>
                 <Typography noWrap><b>{value.author}</b></Typography>
                 <Typography>{value.content}</Typography>
             </Box>
