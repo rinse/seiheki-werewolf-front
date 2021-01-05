@@ -22,7 +22,7 @@ export default function SeihekiBody(props: Properties) {
     const classes = useStyles();
     return (
         <Box border={1} borderColor="#dee2e6">
-            <Box m={4} onClick={e => props.onCommentClick(e)}>
+            <Box m={2} onClick={e => props.onCommentClick(e)}>
                 <Typography noWrap><b>{seiheki.author}</b></Typography>
                 <Typography className={classes.typography}>{seiheki.content}</Typography>
             </Box>

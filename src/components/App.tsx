@@ -45,7 +45,7 @@ export default function App() {
     const [tabValue, setTabValue] = useState(0);
     return (
         <Box>
-            <AppBar position="static" classes={{root: styles.root}}>
+            <AppBar position="sticky" classes={{root: styles.root}}>
                 <Toolbar>
                     <Typography variant="h6" className={styles.title}>
                         <Link href="/" color="inherit" underline="none">性癖人狼</Link>
